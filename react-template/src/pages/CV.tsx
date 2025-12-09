@@ -1,4 +1,3 @@
-import { Briefcase, GraduationCap, Heart } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -34,7 +33,7 @@ const CV = () => {
       company: "SYKES - Telenor og Nordea Liv",
       period: "okt 2019 - des 2020",
       description:
-        "Innkommande henvendingar frå kundar. Sal av mobilabonnement, forsikring og diverse oppsal. Blei utmerka med særs god kvalitet av sal i mai 2020. Plukka ut til å bli med på sideprosjekt med Nordea Liv.",
+        "Innkommande henvendingar frå kundar. Sal av mobilabonnement, forsikring og diverse oppsal. Blei utmerka med særs god kvalitet av sal i mai 2020.",
     },
   ];
 
@@ -51,95 +50,92 @@ const CV = () => {
       title: "Seljar",
       company: "Isbilen",
       period: "mai 2018 - des 2023",
-      description:
-        "Jobba annakvar helg 30% saman med 100% i TF Bank. Lagt godt grunnalg for salskompetanse.",
+      description: "Jobba annakvar helg 30% saman med 100% i TF Bank.",
     },
   ];
 
   const isSubPage = location.pathname !== "/cv";
 
+  if (isSubPage) return null;
+
   return (
-    <div className="min-h-screen p-6 md:p-12 pt-24">
-      <div className="max-w-6xl mx-auto">
-        {/* CV Navigation */}
-        {!isSubPage && (
-          <>
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                <span className="text-header-text">Curriculum Vitae</span>
-              </h1>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/cv/education"
-                  className="flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
-                >
-                  <GraduationCap className="w-5 h-5" />
-                  Education
-                </Link>
-                <Link
-                  to="/cv/hobbies"
-                  className="flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/80 transition-colors"
-                >
-                  <Heart className="w-5 h-5" />
-                  Hobbies
-                </Link>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="space-y-2">
+        <p>
+          <span className="text-terminal-prompt">$ </span>
+          <span className="text-terminal-command">cat cv.txt</span>
+        </p>
+        <h1 className="text-3xl font-bold text-accent terminal-glow">
+          # CURRICULUM VITAE
+        </h1>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex gap-4">
+        <Link
+          to="/cv/education"
+          className="border border-border hover:border-secondary px-4 py-2 rounded transition-all hover:bg-secondary/10"
+        >
+          <span className="text-secondary">→ education.txt</span>
+        </Link>
+        <Link
+          to="/cv/hobbies"
+          className="border border-border hover:border-secondary px-4 py-2 rounded transition-all hover:bg-secondary/10"
+        >
+          <span className="text-secondary">→ hobbies.txt</span>
+        </Link>
+      </div>
+
+      {/* Main Jobs */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground">## Work Experience (Primary)</p>
+        <div className="space-y-4">
+          {mainJobs.map((job) => (
+            <div key={job.id} className="border border-border bg-card/30 p-4 rounded">
+              <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
+                <div>
+                  <span className="text-primary font-semibold">{job.title}</span>
+                  <span className="text-muted-foreground"> @ </span>
+                  <span className="text-accent">{job.company}</span>
+                </div>
+                <span className="text-muted-foreground text-sm bg-muted px-2 py-1 rounded">
+                  {job.period}
+                </span>
               </div>
+              <p className="text-muted-foreground text-sm">{job.description}</p>
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Work Experience */}
-            <section className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
-                <Briefcase className="w-8 h-8 text-accent" />
-                <h2 className="text-3xl font-bold text-foreground">Work Experience</h2>
-              </div>
-
-              {/* Main Jobs */}
-              <div className="space-y-6 mb-8">
-                {mainJobs.map((job) => (
-                  <div key={job.id} className="bg-card p-6 rounded-lg shadow-md border border-border">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="text-2xl font-semibold text-foreground">{job.title}</h3>
-                        <p className="text-xl text-accent font-medium">{job.company}</p>
-                      </div>
-                      <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded">
-                        {job.period}
-                      </span>
-                    </div>
-                    <p className="text-muted-foreground">{job.description}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Other Jobs - Collapsible */}
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-muted-foreground mb-3">Other Experience</h3>
-                {otherJobs.map((job) => (
-                  <div key={job.id} className="bg-muted rounded-lg overflow-hidden">
-                    <button
-                      onClick={() => toggleJob(job.id)}
-                      className="w-full px-6 py-4 text-left hover:bg-muted/80 transition-colors flex justify-between items-center"
-                    >
-                      <div>
-                        <span className="font-semibold text-foreground">{job.title}</span>
-                        <span className="text-muted-foreground"> - {job.company}</span>
-                      </div>
-                      <span className="text-2xl text-accent">
-                        {expandedJobs.includes(job.id) ? "−" : "+"}
-                      </span>
-                    </button>
-                    {expandedJobs.includes(job.id) && (
-                      <div className="px-6 pb-4">
-                        <p className="text-sm text-muted-foreground mb-2">{job.period}</p>
-                        <p className="text-muted-foreground">{job.description}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-          </>
-        )}
+      {/* Other Jobs */}
+      <div className="space-y-2">
+        <p className="text-muted-foreground">## Other Experience</p>
+        <div className="space-y-2">
+          {otherJobs.map((job) => (
+            <div key={job.id} className="border border-border bg-muted/30 rounded">
+              <button
+                onClick={() => toggleJob(job.id)}
+                className="w-full px-4 py-3 text-left hover:bg-primary/10 transition-all flex justify-between items-center"
+              >
+                <div>
+                  <span className="text-primary">{job.title}</span>
+                  <span className="text-muted-foreground"> @ {job.company}</span>
+                </div>
+                <span className="text-accent">
+                  {expandedJobs.includes(job.id) ? "[-]" : "[+]"}
+                </span>
+              </button>
+              {expandedJobs.includes(job.id) && (
+                <div className="px-4 pb-3 border-t border-border">
+                  <p className="text-muted-foreground text-sm pt-2">{job.period}</p>
+                  <p className="text-muted-foreground text-sm">{job.description}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

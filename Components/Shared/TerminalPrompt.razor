@@ -1,0 +1,47 @@
+@inject NavigationManager Nav
+@implements IDisposable
+
+<div class="terminal-line" role="status" aria-live="polite">
+    <span class="text-terminal-user">jaurund</span>
+    <span class="text-muted">@@</span>
+    <span class="text-terminal-host">portfolio</span>
+    <span class="text-muted">:</span>
+    <span class="text-terminal-path">@_pathName</span>
+    <span class="text-muted">$</span>
+    <span class="terminal-caret">█</span>
+</div>
+
+@code {
+    private string _pathName = "~";
+
+    protected override void OnInitialized()
+    {
+        _pathName = GetPathName(Nav.Uri);
+        Nav.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        _pathName = GetPathName(e.Location);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private static string GetPathName(string uri)
+    {
+        try
+        {
+            var path = new Uri(uri).AbsolutePath.TrimEnd('/');
+            if (string.IsNullOrEmpty(path) || path == "/") return "~";
+            return path;
+        }
+        catch
+        {
+            return "~";
+        }
+    }
+
+    public void Dispose()
+    {
+        Nav.LocationChanged -= OnLocationChanged;
+    }
+}

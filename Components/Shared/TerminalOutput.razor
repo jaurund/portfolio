@@ -1,0 +1,68 @@
+@rendermode InteractiveServer
+@using portfolio.Services
+@inject TerminalService Terminal
+@inject NavigationManager Nav
+@implements IDisposable
+
+<div class="terminal-output flex-1 overflow-y-auto p-4 font-mono text-sm" @ref="_outputRef">
+    @foreach (var line in Terminal.Lines)
+    {
+        <div class="@GetLineClass(line.Type) whitespace-pre-wrap">
+            @if (line.Type == TerminalLineType.Input)
+            {
+                <span>@FormatPrompt(line.Prompt) <span class="text-foreground">@line.Content</span></span>
+            }
+            else
+            {
+                @line.Content
+            }
+        </div>
+    }
+    <TerminalInput />
+</div>
+
+@code {
+    private ElementReference _outputRef;
+
+    protected override void OnInitialized()
+    {
+        Terminal.OnStateChanged += StateHasChanged;
+    }
+
+    private string GetLineClass(TerminalLineType type)
+    {
+        return type switch
+        {
+            TerminalLineType.Error => "text-destructive",
+            TerminalLineType.Success => "text-primary",
+            TerminalLineType.Input => "text-foreground",
+            _ => "text-muted-foreground"
+        };
+    }
+
+    private RenderFragment FormatPrompt(string? prompt)
+    {
+        if (string.IsNullOrEmpty(prompt))
+        {
+            return __builder => { };
+        }
+
+        var path = prompt.Replace(" $", "");
+        var pathName = path == "/" ? "~" : path;
+
+        return __builder =>
+        {
+            <span class="text-terminal-user">jaurund</span>
+            <span class="text-foreground">@("@")</span>
+            <span class="text-terminal-host">portfolio</span>
+            <span class="text-foreground">:</span>
+            <span class="text-terminal-path">@pathName</span>
+            <span class="text-foreground"> $</span>
+        };
+    }
+
+    public void Dispose()
+    {
+        Terminal.OnStateChanged -= StateHasChanged;
+    }
+}

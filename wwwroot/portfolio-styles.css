@@ -53,7 +53,7 @@ html, body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; backg
 .footer-link:hover { color: var(--header-text); }
 .home-container { min-height: calc(100vh - 64px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
 .profile-image { width: 192px; height: 192px; border-radius: 50%; background-color: var(--muted); display: flex; align-items: center; justify-content: center; border: 4px solid var(--accent); }
-.profile-name { font-size: 3.75rem; font-weight: bold; text-align: center; }
+.profile-name { font-size: 2.25rem; font-weight: bold; text-align: center; }
 .name-last { color: var(--header-text); }
 .typewriter-container { font-size: 1.5rem; min-height: 80px; display: flex; align-items: center; justify-content: center; }
 .typewriter-highlight { font-weight: bold; color: var(--accent); }
@@ -97,4 +97,4 @@ html, body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; backg
 .project-footer { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--accent); }
 .github-profile-button { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; background-color: #24292e; color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; }
 .github-profile-button:hover { background-color: #1a1e22; box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-@media (min-width: 768px) { .footer-content { flex-direction: row; } .profile-name { font-size: 4.5rem; } }
+@media (min-width: 768px) { .footer-content { flex-direction: row; } .profile-name { font-size: 3rem; } }

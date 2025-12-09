@@ -1,0 +1,141 @@
+@rendermode InteractiveServer
+@using portfolio.Services
+@inject TerminalService Terminal
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@implements IDisposable
+
+<div class="flex items-center terminal-input-line">
+    <span class="whitespace-nowrap">
+        <span class="text-terminal-user">jaurund</span>
+        <span class="text-foreground">@("@")</span>
+        <span class="text-terminal-host">portfolio</span>
+        <span class="text-foreground">:</span>
+        <span class="text-terminal-path">@GetPathName()</span>
+        <span class="text-foreground"> $</span>
+    </span>
+    <div class="relative flex-1 ml-2">
+        <input @ref="_inputRef"
+               type="text"
+               @bind="_input"
+               @bind:event="oninput"
+               @onkeydown="HandleKeyDown"
+               class="terminal-invisible-input"
+               spellcheck="false"
+               autocomplete="off"
+               autocapitalize="off" />
+        <span class="text-foreground">@_input</span>
+        <span class="terminal-cursor-block">█</span>
+        @if (!string.IsNullOrEmpty(_suggestion))
+        {
+            <span class="text-suggestion">@_suggestion</span>
+        }
+    </div>
+</div>
+
+@code {
+    private ElementReference _inputRef;
+    private string _input = "";
+    private string _suggestion = "";
+
+    private static readonly string[] Commands = { "help", "cd", "ls", "cat", "pwd", "whoami", "clear", "history", "neofetch", "cowsay", "sudo", "rm" };
+    private static readonly string[] Paths = { "/", "/cv", "/cv/education", "/cv/hobbies", "/projects" };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("eval", "document.addEventListener('click', () => document.querySelector('.terminal-invisible-input')?.focus())");
+            await JS.InvokeVoidAsync("eval", "document.querySelector('.terminal-invisible-input')?.focus()");
+        }
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        _input = e.Value?.ToString() ?? "";
+        _suggestion = GetAutoComplete(_input);
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Enter":
+                Terminal.ExecuteCommand(_input);
+                _input = "";
+                _suggestion = "";
+                await InvokeAsync(StateHasChanged);
+                break;
+
+            case "Tab":
+                if (!string.IsNullOrEmpty(_suggestion))
+                {
+                    _input += _suggestion;
+                    _suggestion = GetAutoComplete(_input);
+                }
+                break;
+
+            case "ArrowUp":
+                var prevCmd = Terminal.NavigateHistory("up");
+                _input = prevCmd;
+                _suggestion = "";
+                break;
+
+            case "ArrowDown":
+                var nextCmd = Terminal.NavigateHistory("down");
+                _input = nextCmd;
+                _suggestion = "";
+                break;
+
+            case "c":
+                if (e.CtrlKey)
+                {
+                    _input = "";
+                    _suggestion = "";
+                }
+                break;
+
+            case "l":
+                if (e.CtrlKey)
+                {
+                    Terminal.ClearTerminal();
+                }
+                break;
+        }
+    }
+
+    private string GetAutoComplete(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return "";
+
+        var parts = value.Split(' ', StringSplitOptions.None);
+        var lastPart = parts[^1];
+        var cmd = parts[0].ToLower();
+
+        if (parts.Length == 1)
+        {
+            var match = Commands.FirstOrDefault(c => c.StartsWith(lastPart.ToLower()) && c != lastPart.ToLower());
+            return match != null ? match[lastPart.Length..] : "";
+        }
+
+        if ((cmd == "cd" || cmd == "cat") && parts.Length == 2)
+        {
+            var match = Paths.FirstOrDefault(p => p.StartsWith(lastPart) && p != lastPart);
+            return match != null ? match[lastPart.Length..] : "";
+        }
+
+        return "";
+    }
+
+    private string GetPathName()
+    {
+        var currentPath = Terminal.CurrentPath;
+        if (string.IsNullOrEmpty(currentPath) || currentPath == "/") return "~";
+        return $"/{currentPath}".Replace("//", "/");
+    }
+
+    public void Dispose()
+    {
+        Terminal.OnStateChanged -= StateHasChanged;
+    }
+}

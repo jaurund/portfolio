@@ -1,50 +1,73 @@
 import { User } from "lucide-react";
 import { TypewriterText } from "@/components/TypewriterText";
-import githubLogo from "@/assets/github-logo.png";
+import { GitHubCalendar } from "react-github-calendar";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 md:p-12">
-      <div className="max-w-4xl w-full space-y-12">
-        {/* Profile Section */}
-        <div className="flex flex-col items-center gap-8">
-          <div className="w-48 h-48 rounded-full bg-muted flex items-center justify-center border-4 border-accent">
-            <User className="w-32 h-32 text-muted-foreground" />
+    <div className="space-y-8">
+      {/* Profile */}
+      <div className="border border-border bg-card/30 p-6 rounded">
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="w-32 h-32 rounded border-2 border-border flex items-center justify-center bg-muted">
+            <User className="w-20 h-20 text-muted-foreground" />
           </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold text-center">
-            <span className="text-foreground">Jørund</span>{" "}
-            <span className="text-header-text">Vatle Sandgren</span>
-          </h1>
+          <div className="text-center md:text-left space-y-2">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              <span className="text-terminal-user">Jørund</span>{" "}
+              <span className="text-terminal-host">Vatle Sandgren</span>
+            </h1>
+            <p className="text-muted-foreground text-sm">// Backend Developer in Training</p>
+          </div>
         </div>
+      </div>
 
-        {/* Typewriter Section */}
-        <div className="text-center px-4">
-          <TypewriterText />
+      {/* Typewriter */}
+      <div className="py-4">
+        <TypewriterText />
+      </div>
+
+      {/* Bio */}
+      <div className="space-y-2">
+        <p>
+          <span className="text-terminal-prompt">$ </span>
+          <span className="text-terminal-command">cat about.txt</span>
+        </p>
+        <div className="border-l-2 border-primary/50 pl-4 text-muted-foreground">
+          <p>Samfunnsengasjert og kreativ type med stort hjerte,</p>
+          <p>og flink til å ta vare på medmenneskje.</p>
+          <p>Romfartsnerd, motorhovud, tekstgalning, trommis, gamer og teiknar.</p>
         </div>
+      </div>
 
-        {/* GitHub Button */}
-        <div className="flex justify-center">
-          <a
-            href="https://github.com/jaurund"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-4 px-8 py-4 bg-[#24292e] hover:bg-[#1a1e22] text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            <img
-              src={githubLogo}
-              alt="GitHub"
-              className="w-32 h-auto group-hover:scale-110 transition-transform"
-            />
-          </a>
-        </div>
+      {/* GitHub Link */}
+      <div className="space-y-2">
+        <p>
+          <span className="text-terminal-prompt">$ </span>
+          <span className="text-terminal-command">open https://github.com/jaurund</span>
+        </p>
+        <a
+          href="https://github.com/jaurund"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block border border-border hover:border-terminal-user bg-card hover:bg-terminal-user/10 px-6 py-3 rounded transition-all group"
+        >
+          <span className="text-terminal-user">→ View GitHub Profile</span>
+        </a>
+      </div>
 
-        {/* Bio Section */}
-        <div className="text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-          <p>
-            Samfunnsengasjert og kreativ type med stort hjerte, og flink til å ta vare på
-            medmenneskje. Romfartsnerd, motorhovud, tekstgalning, trommis, gamer og teiknar.
-          </p>
+      {/* GitHub Calendar */}
+      <div className="space-y-2">
+        <p>
+          <span className="text-terminal-prompt">$ </span>
+          <span className="text-terminal-command">git log --oneline --graph</span>
+        </p>
+        <div className="border border-border bg-card/30 p-4 rounded overflow-x-auto">
+          <GitHubCalendar
+            username="jaurund"
+            colorScheme="dark"
+            fontSize={12}
+            blockSize={12}
+          />
         </div>
       </div>
     </div>

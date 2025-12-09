@@ -39,10 +39,10 @@ export const TypewriterText = () => {
   }, [displayedText, isDeleting, currentPhraseIndex]);
 
   return (
-    <div className="text-xl md:text-2xl text-foreground min-h-[80px] flex items-center justify-center">
+    <div className="text-xl md:text-2xl text-foreground">
       <span>
         Aspiring backend-developer, currently learning the ropes and building{" "}
-        <span className="font-bold text-accent">
+        <span className="font-bold text-accent inline-block min-w-[200px] text-left">
           {displayedText}
           <span className="animate-pulse">|</span>
         </span>

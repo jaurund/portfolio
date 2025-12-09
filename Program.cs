@@ -1,10 +1,13 @@
 using portfolio.Components;
+using portfolio.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<TerminalService>();
 
 var app = builder.Build();
 

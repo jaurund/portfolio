@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@using portfolio.Services
 
 <div class="min-h-screen bg-background text-foreground flex flex-col font-mono text-sm">
     <div class="flex-1 flex flex-col">
@@ -6,13 +6,12 @@
 
         <!-- Page content rendered inline -->
         <div class="px-4 pb-4">
-            @Body
+            @ChildContent
         </div>
     </div>
 </div>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div>
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

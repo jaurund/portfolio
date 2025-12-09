@@ -2,135 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Git Bash Terminal Theme */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 210 11% 95%;
-    --foreground: 236 66% 17%;
+    --background: 220 20% 12%;
+    --foreground: 0 0% 85%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 236 66% 17%;
+    --card: 220 20% 15%;
+    --card-foreground: 0 0% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 236 66% 17%;
+    --popover: 220 20% 15%;
+    --popover-foreground: 0 0% 85%;
 
-    --primary: 236 66% 17%;
-    --primary-foreground: 210 11% 95%;
+    --primary: 120 60% 50%;
+    --primary-foreground: 220 20% 12%;
 
-    --secondary: 201 64% 39%;
-    --secondary-foreground: 210 11% 95%;
+    --secondary: 300 70% 65%;
+    --secondary-foreground: 220 20% 12%;
 
-    --muted: 210 11% 90%;
-    --muted-foreground: 236 20% 40%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 355 62% 51%;
-    --accent-foreground: 210 11% 95%;
+    --accent: 45 100% 55%;
+    --accent-foreground: 220 20% 12%;
 
-    --destructive: 355 62% 51%;
-    --destructive-foreground: 210 11% 95%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 201 20% 80%;
-    --input: 201 20% 80%;
-    --ring: 201 64% 39%;
+    --border: 220 15% 25%;
+    --input: 220 15% 18%;
+    --ring: 120 60% 50%;
 
-    --radius: 1rem;
+    --radius: 0.25rem;
 
-    --nav-bg: 236 66% 17%;
-    --nav-hover: 201 64% 39%;
-    
-    --header-text: 3 68% 64%;
-    --accent-light: 3 68% 64%;
-
-    --sidebar-background: 236 66% 17%;
-    --sidebar-foreground: 210 11% 95%;
-    --sidebar-primary: 201 64% 39%;
-    --sidebar-primary-foreground: 210 11% 95%;
-    --sidebar-accent: 201 64% 39%;
-    --sidebar-accent-foreground: 210 11% 95%;
-    --sidebar-border: 236 50% 25%;
-    --sidebar-ring: 201 64% 39%;
+    --terminal-prompt: 120 60% 50%;
+    --terminal-path: 300 70% 65%;
+    --terminal-user: 180 70% 60%;
+    --terminal-host: 45 100% 55%;
+    --terminal-command: 0 0% 100%;
   }
 
   .dark {
-    --background: 236 66% 17%;
-    --foreground: 210 11% 95%;
+    --background: 220 20% 10%;
+    --foreground: 0 0% 85%;
 
-    --card: 236 50% 20%;
-    --card-foreground: 210 11% 95%;
+    --card: 220 20% 13%;
+    --card-foreground: 0 0% 85%;
 
-    --popover: 236 50% 20%;
-    --popover-foreground: 210 11% 95%;
+    --popover: 220 20% 13%;
+    --popover-foreground: 0 0% 85%;
 
-    --primary: 210 11% 95%;
-    --primary-foreground: 236 66% 17%;
+    --primary: 120 60% 50%;
+    --primary-foreground: 220 20% 10%;
 
-    --secondary: 201 64% 39%;
-    --secondary-foreground: 210 11% 95%;
+    --secondary: 300 70% 65%;
+    --secondary-foreground: 220 20% 10%;
 
-    --muted: 236 50% 25%;
-    --muted-foreground: 210 11% 70%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 0 0% 50%;
 
-    --accent: 355 62% 51%;
-    --accent-foreground: 210 11% 95%;
+    --accent: 45 100% 55%;
+    --accent-foreground: 220 20% 10%;
 
-    --destructive: 355 62% 51%;
-    --destructive-foreground: 210 11% 95%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 236 50% 25%;
-    --input: 236 50% 25%;
-    --ring: 201 64% 39%;
+    --border: 220 15% 22%;
+    --input: 220 15% 15%;
+    --ring: 120 60% 50%;
 
-    --nav-bg: 201 64% 39%;
-    --nav-hover: 201 54% 50%;
-    
-    --header-text: 3 68% 64%;
-    --accent-light: 3 68% 64%;
-
-    --sidebar-background: 201 64% 39%;
-    --sidebar-foreground: 210 11% 95%;
-    --sidebar-primary: 236 66% 17%;
-    --sidebar-primary-foreground: 210 11% 95%;
-    --sidebar-accent: 201 54% 50%;
-    --sidebar-accent-foreground: 210 11% 95%;
-    --sidebar-border: 201 54% 45%;
-    --sidebar-ring: 236 66% 17%;
+    --terminal-prompt: 120 60% 50%;
+    --terminal-path: 300 70% 65%;
+    --terminal-user: 180 70% 60%;
+    --terminal-host: 45 100% 55%;
+    --terminal-command: 0 0% 100%;
   }
 }
 
 @layer utilities {
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
   @keyframes typewriter {
     from { width: 0; }
     to { width: 100%; }
   }
 
-  @keyframes blink {
-    50% { border-color: transparent; }
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
   }
 
-  @keyframes balloon {
-    from {
-      width: 64px;
-      opacity: 0.95;
-    }
-    to {
-      width: 240px;
-      opacity: 1;
-    }
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
   }
 
   .typewriter {
     overflow: hidden;
-    border-right: 2px solid hsl(var(--accent));
     white-space: nowrap;
-    animation: typewriter 2s steps(30) forwards, blink 0.75s step-end infinite;
+    animation: typewriter 2s steps(30) forwards;
   }
 
-  .balloon-animate {
-    animation: balloon 0.3s ease-out forwards;
-  }
 }
 
 @layer base {
@@ -139,6 +115,11 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
+    font-family: 'Fira Code', monospace;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
   }
 }

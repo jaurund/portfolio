@@ -2,41 +2,64 @@
 
 <PageTitle>Home - Jørund Vatle Sandgren</PageTitle>
 
-<div class="home-container">
-    <div class="home-content">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-image">
-                <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<div class="space-y-8 px-4 pb-4">
+    <!-- Profile Card -->
+    <div class="border border-border bg-card/30 p-6 rounded">
+        <div class="flex items-center gap-6">
+            <div class="w-32 h-32 rounded border-2 border-border flex items-center justify-center bg-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-
-            <h1 class="profile-name">
-                <span class="name-first">Jørund</span>
-                <span class="name-last">Vatle Sandgren</span>
-            </h1>
+            <div class="text-left">
+                <h1 class="text-3xl font-bold">
+                    <span class="text-terminal-user">Jørund</span>
+                    <span> </span>
+                    <span class="text-terminal-host">Vatle Sandgren</span>
+                </h1>
+                <p class="text-header-sub">// Backend Developer in Training</p>
+            </div>
         </div>
+    </div>
 
-        <!-- Typewriter Section -->
-        <div class="typewriter-section">
-            <TypewriterText />
+    <!-- Typewriter line -->
+    <div class="py-4">
+        <TypewriterText />
+    </div>
+
+    <!-- Bio with command -->
+    <div class="space-y-2">
+        <p>
+            <span class="text-terminal-prompt">$ </span>
+            <span class="text-terminal-command">cat about.txt</span>
+        </p>
+        <div class="border-l-2 pl-4 text-muted-foreground">
+            <p>Samfunnsengasjert og kreativ type med stort hjerte,</p>
+            <p>og flink til å ta vare på medmenneskje.</p>
+            <p>Romfartsnerd, motorhovud, tekstgalning, trommis, gamer og teiknar.</p>
         </div>
+    </div>
 
-        <!-- GitHub Button -->
-        <div class="github-section">
-            <a href="https://github.com/jaurund" target="_blank" rel="noopener noreferrer" class="github-button">
-                <img src="/github-logo.png" alt="GitHub" class="github-logo" />
-            </a>
-        </div>
+    <!-- GitHub link with command -->
+    <div class="space-y-2">
+        <p>
+            <span class="text-terminal-prompt">$ </span>
+            <span class="text-terminal-command">open https://github.com/jaurund</span>
+        </p>
+        <a href="https://github.com/jaurund" target="_blank" rel="noopener noreferrer" class="gh-pill inline-block" aria-label="Open GitHub profile" title="GitHub: jaurund">
+            <img src="/github-logo.png" alt="GitHub" class="gh-logo" />
+        </a>
+    </div>
 
-        <!-- Bio Section -->
-        <div class="bio-section">
-            <p>
-                Samfunnsengasjert og kreativ type med stort hjerte, og flink til å ta vare på
-                medmenneskje. Romfartsnerd, motorhovud, tekstgalning, trommis, gamer og teiknar.
-            </p>
+    <!-- Contribution graph -->
+    <div class="space-y-2">
+        <p>
+            <span class="text-terminal-prompt">$ </span>
+            <span class="text-terminal-command">git log --oneline --graph</span>
+        </p>
+        <div class="border border-border bg-card/30 p-4 rounded overflow-x-auto">
+            <img src="https://ghchart.rshah.org/jaurund" alt="GitHub contributions chart for jaurund" style="width:100%;height:auto;" />
         </div>
     </div>
 </div>
