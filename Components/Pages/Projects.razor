@@ -1,0 +1,131 @@
+@page "/projects"
+
+<PageTitle>Projects - Jørund Vatle Sandgren</PageTitle>
+
+<div class="projects-container">
+    <div class="projects-content">
+        <h1 class="projects-title">
+            <span class="header-text">Projects</span>
+        </h1>
+
+        <!-- GitHub Activity Section -->
+        <div class="github-activity-card">
+            <div class="github-activity-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="github-icon">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <h2 class="github-activity-title">GitHub Activity</h2>
+            </div>
+            <div class="github-calendar-placeholder">
+                <p>GitHub calendar visualization would go here</p>
+                <a href="https://github.com/jaurund" target="_blank" rel="noopener noreferrer" class="github-profile-link">
+                    View GitHub Profile →
+                </a>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            @foreach (var project in projects)
+            {
+                <a href="@project.Url" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-card-header">
+                        <h3 class="project-title">@project.Title</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </div>
+
+                    <p class="project-description">@project.Description</p>
+
+                    <div class="project-tags">
+                        @foreach (var tag in project.Tags)
+                        {
+                            <span class="project-tag">@tag</span>
+                        }
+                    </div>
+
+                    <div class="project-footer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <span>View on GitHub</span>
+                    </div>
+                </a>
+            }
+        </div>
+
+        <!-- Full GitHub Profile Button -->
+        <div class="github-profile-section">
+            <a href="https://github.com/jaurund" target="_blank" rel="noopener noreferrer" class="github-profile-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                View Full GitHub Profile
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+@code {
+    private class ProjectInfo
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string Url { get; set; } = "";
+        public List<string> Tags { get; set; } = new();
+    }
+
+    private List<ProjectInfo> projects = new()
+    {
+        new ProjectInfo
+        {
+            Title = "Quote Randomizer REST API",
+            Description = "RESTful API for generating random quotes with full CRUD operations",
+            Url = "https://github.com/jaurund/quote-randomizer-RESTAPI",
+            Tags = new List<string> { "REST API", "Backend", "Node.js" }
+        },
+        new ProjectInfo
+        {
+            Title = "Learning Project - REST API & OAuth",
+            Description = "Comprehensive learning project covering REST API, OAuth authentication, SQL databases, and containerization",
+            Url = "https://github.com/jaurund/learning-project-for-RESTAPI-OAuth-SQL-Container",
+            Tags = new List<string> { "OAuth", "SQL", "Docker", "REST API" }
+        },
+        new ProjectInfo
+        {
+            Title = "Bird Strikes LINQ Database",
+            Description = "Database project analyzing bird strike incidents using LINQ queries",
+            Url = "https://github.com/jaurund/bird-strikes-linq-database-project",
+            Tags = new List<string> { "LINQ", "C#", "Database" }
+        },
+        new ProjectInfo
+        {
+            Title = "C# Basic Program Flow",
+            Description = "Fundamental C# exercises focusing on program control flow and logic",
+            Url = "https://github.com/jaurund/C-basic-oppgave-programflyt",
+            Tags = new List<string> { "C#", "Basics", "Logic" }
+        },
+        new ProjectInfo
+        {
+            Title = "BergenApp",
+            Description = "Collaborative application for Bergen city information and services",
+            Url = "https://github.com/Balxkodehodet/bergenapp",
+            Tags = new List<string> { "Collaboration", "React", "TypeScript" }
+        },
+        new ProjectInfo
+        {
+            Title = "PrintForge",
+            Description = "Modern printing solution with advanced features",
+            Url = "https://github.com/MariusREL/printforge",
+            Tags = new List<string> { "Collaboration", "Full-stack" }
+        }
+    };
+}

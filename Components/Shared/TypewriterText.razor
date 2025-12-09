@@ -1,0 +1,79 @@
+@rendermode InteractiveServer
+@implements IDisposable
+
+<div class="typewriter-container">
+    <span>
+        Aspiring backend-developer, currently learning the ropes and building
+        <span class="typewriter-highlight">
+            @displayedText<span class="typewriter-cursor">|</span>
+        </span>
+    </span>
+</div>
+
+@code {
+    private string[] phrases = new[]
+    {
+        "REST APIs",
+        "collaborative projects",
+        "SQL databases",
+        "backend systems",
+        "clean code"
+    };
+
+    private int currentPhraseIndex = 0;
+    private string displayedText = "";
+    private bool isDeleting = false;
+    private System.Threading.Timer? timer;
+
+    protected override void OnInitialized()
+    {
+        timer = new System.Threading.Timer(async _ =>
+        {
+            await UpdateText();
+        }, null, 100, 100);
+    }
+
+    private async Task UpdateText()
+    {
+        try
+        {
+            var currentPhrase = phrases[currentPhraseIndex];
+
+            if (!isDeleting)
+            {
+                if (displayedText.Length < currentPhrase.Length)
+                {
+                    displayedText = currentPhrase.Substring(0, displayedText.Length + 1);
+                    await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    await Task.Delay(2000);
+                    isDeleting = true;
+                }
+            }
+            else
+            {
+                if (displayedText.Length > 0)
+                {
+                    displayedText = displayedText.Substring(0, displayedText.Length - 1);
+                    await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    isDeleting = false;
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.Length;
+                }
+            }
+        }
+        catch
+        {
+            // Prevent errors during component disposal
+        }
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}

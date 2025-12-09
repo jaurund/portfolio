@@ -1,0 +1,155 @@
+@page "/cv"
+@rendermode InteractiveServer
+
+<PageTitle>CV - Jørund Vatle Sandgren</PageTitle>
+
+<div class="cv-container">
+    <div class="cv-content">
+        <!-- CV Navigation -->
+        <div class="cv-header">
+            <h1 class="cv-title">
+                <span class="header-text">Curriculum Vitae</span>
+            </h1>
+            <div class="cv-nav-buttons">
+                <a href="/cv/education" class="cv-nav-button education-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    Education
+                </a>
+                <a href="/cv/hobbies" class="cv-nav-button hobbies-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    Hobbies
+                </a>
+            </div>
+        </div>
+
+        <!-- Work Experience -->
+        <section class="work-experience-section">
+            <div class="section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="section-icon">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                <h2 class="section-title">Work Experience</h2>
+            </div>
+
+            <!-- Main Jobs -->
+            <div class="main-jobs">
+                @foreach (var job in mainJobs)
+                {
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-info">
+                                <h3 class="job-title">@job.Title</h3>
+                                <p class="job-company">@job.Company</p>
+                            </div>
+                            <span class="job-period">@job.Period</span>
+                        </div>
+                        <p class="job-description">@job.Description</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Other Jobs - Collapsible -->
+            <div class="other-jobs">
+                <h3 class="other-jobs-title">Other Experience</h3>
+                @foreach (var job in otherJobs)
+                {
+                    <div class="collapsible-job">
+                        <button class="collapsible-job-button" @onclick="() => ToggleJob(job.Id)">
+                            <div class="collapsible-job-info">
+                                <span class="collapsible-job-title">@job.Title</span>
+                                <span class="collapsible-job-company"> - @job.Company</span>
+                            </div>
+                            <span class="collapsible-toggle">@(expandedJobs.Contains(job.Id) ? "−" : "+")</span>
+                        </button>
+                        @if (expandedJobs.Contains(job.Id))
+                        {
+                            <div class="collapsible-job-content">
+                                <p class="collapsible-job-period">@job.Period</p>
+                                <p class="collapsible-job-description">@job.Description</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+    private List<string> expandedJobs = new();
+
+    private class JobInfo
+    {
+        public string Id { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Company { get; set; } = "";
+        public string Period { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+
+    private List<JobInfo> mainJobs = new()
+    {
+        new JobInfo
+        {
+            Id = "jobloop",
+            Title = "Kursdeltaker - Kodehode",
+            Company = "Jobloop",
+            Period = "Current",
+            Description = "Learning full-stack development with focus on backend technologies"
+        },
+        new JobInfo
+        {
+            Id = "tfbank",
+            Title = "Kundeservicemedarbeidar",
+            Company = "TF BANK",
+            Period = "jan 2021 - apr 2023",
+            Description = "Postansvarleg. Jobbar med innkommande telefonsamtalar og e-post. Rettleiar kundar i finanstenester og forsikring. Utforming av standardsvar for kundeservice."
+        },
+        new JobInfo
+        {
+            Id = "sykes",
+            Title = "Salskonsulent",
+            Company = "SYKES - Telenor og Nordea Liv",
+            Period = "okt 2019 - des 2020",
+            Description = "Innkommande henvendingar frå kundar. Sal av mobilabonnement, forsikring og diverse oppsal. Blei utmerka med særs god kvalitet av sal i mai 2020. Plukka ut til å bli med på sideprosjekt med Nordea Liv."
+        }
+    };
+
+    private List<JobInfo> otherJobs = new()
+    {
+        new JobInfo
+        {
+            Id = "skeidar",
+            Title = "Lagermedarbeider",
+            Company = "Skeidar",
+            Period = "apr 2023 - aug 2024",
+            Description = "Tok trucklappen - T1, T2 og T4"
+        },
+        new JobInfo
+        {
+            Id = "isbilen",
+            Title = "Seljar",
+            Company = "Isbilen",
+            Period = "mai 2018 - des 2023",
+            Description = "Jobba annakvar helg 30% saman med 100% i TF Bank. Lagt godt grunnalg for salskompetanse."
+        }
+    };
+
+    private void ToggleJob(string jobId)
+    {
+        if (expandedJobs.Contains(jobId))
+        {
+            expandedJobs.Remove(jobId);
+        }
+        else
+        {
+            expandedJobs.Add(jobId);
+        }
+    }
+}

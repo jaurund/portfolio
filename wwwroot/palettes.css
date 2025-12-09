@@ -1,0 +1,24 @@
+:root {
+    /* Color Palette */
+    --cream-white: #fbf5f3;
+    --golden-orange: #e28413;
+    --midnight-navy: #000022;
+    --crimson-red: #de3c4b;
+    --deep-crimson: #c42847;
+    --rich-cerulean: #2274a5;
+    --deep-navy: #111344;
+    --white-smoke: #f2f4f3;
+    --cherry-rose: #a4243b;
+    --vibrant-coral: #f07167;
+
+    /* Semantic color names for easier usage */
+    --color-primary: var(--rich-cerulean);
+    --color-secondary: var(--deep-navy);
+    --color-background: var(--white-smoke);
+    --color-background-alt: var(--cream-white);
+    --color-accent: var(--crimson-red);
+    --color-accent-dark: var(--cherry-rose);
+    --color-highlight: var(--vibrant-coral);
+    --color-warning: var(--golden-orange);
+    --color-dark: var(--midnight-navy);
+}
