@@ -20,7 +20,7 @@
 mono_crash.*
 
 #Reference projects
-/react-template/
+react-template/
 
 # Build results
 [Dd]ebug/
